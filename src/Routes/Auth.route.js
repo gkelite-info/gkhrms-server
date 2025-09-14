@@ -1,13 +1,20 @@
-import express from "express"
-import { addedHr, login, profile, signup } from "../Controllers/Auth.controller.js"
-import { authentication } from "../Middlewares/AuthMiddleware.js"
+import express from "express";
+import {
+  addedHr,
+  getEmpSepOrganization,
+  login,
+  profile,
+  signup,
+} from "../Controllers/Auth.controller.js";
+import { authentication } from "../Middlewares/AuthMiddleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/sign-up', signup)
-router.post('/login', login)
-router.get("/profile", authentication, profile)
+router.post("/sign-up", signup);
+router.post("/login", login);
+router.get("/profile", authentication, profile);
+router.get("/all-emp/:organization", authentication, getEmpSepOrganization);
 
 // super admin or ceo added
-router.post("/add-hr", authentication, addedHr)
-export default router
+router.post("/add-hr/:id", addedHr);
+export default router;
