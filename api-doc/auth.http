@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
     "password" : "123456",
-    "email": "gkeliteceo@gmail.com"
+    "email": "gkelitehr@gmail.com"
 }
 
 ###
@@ -26,14 +26,14 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzQxNWMxMGExODdhMzY5Y2IxMWZmYSIsImVtYWlsIjoiZ2tlbGl0ZWNlb0BnbWFpbC5jb20iLCJpYXQiOjE3NTc2ODExMDJ9.TuV5VlCsKbmQTZsH8Ssp2Jy7U5ydMwGDJ6trvLvroyw
 
 
-###
+### get specific organization employees
 GET {{baseUrl}}/auth/all-emp/GK-Elite
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzQxNWMxMGExODdhMzY5Y2IxMWZmYSIsImVtYWlsIjoiZ2tlbGl0ZWNlb0BnbWFpbC5jb20iLCJpYXQiOjE3NTc2ODExMDJ9.TuV5VlCsKbmQTZsH8Ssp2Jy7U5ydMwGDJ6trvLvroyw
 
 
 
-###
+### add employe through link
 POST {{baseUrl}}/auth/add-hr/68c52152f685d4ce124a5fa6
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzQxNWMxMGExODdhMzY5Y2IxMWZmYSIsImVtYWlsIjoiZ2tlbGl0ZWNlb0BnbWFpbC5jb20iLCJpYXQiOjE3NTc2ODExMDJ9.TuV5VlCsKbmQTZsH8Ssp2Jy7U5ydMwGDJ6trvLvroyw
@@ -45,3 +45,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzQxNWMxM
     "role":"Employee",
     "organization":"GK-Elite"
 }
+
+### get specific organization employees hierarchy
+GET {{baseUrl}}/auth/hierarchy/GK-Elite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzQxNWMxMGExODdhMzY5Y2IxMWZmYSIsImVtYWlsIjoiZ2tlbGl0ZWNlb0BnbWFpbC5jb20iLCJpYXQiOjE3NTc2ODExMDJ9.TuV5VlCsKbmQTZsH8Ssp2Jy7U5ydMwGDJ6trvLvroyw

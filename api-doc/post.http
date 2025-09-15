@@ -1,0 +1,70 @@
+### Create post
+POST {{baseUrl}}/post/create-post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: multipart/form-data; boundary=joy
+
+--joy
+Content-Disposition: form-data; name="text"
+
+First Post i am created..!
+--joy
+Content-Disposition: form-data; name="media"; filename="C:\Users\COMPUTER\Downloads\M5.jpg"
+Content-Type: image/png
+
+< C:\Users\COMPUTER\Downloads\M5.jpg
+--joy--
+
+
+### get all post in specific organizations
+GET {{baseUrl}}/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+
+
+### delete post in specific organizations
+DELETE {{baseUrl}}/post/68c7be7d9540e695b24038ee
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+
+
+### like post in specific organizations
+PATCH {{baseUrl}}/post/like-post/68c7bd6d6f69a285dea20465
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUxY2EwNTFiNjcyYjZlMjRiMGE2MiIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIyQGdtYWlsLmNvbSIsInJvbGUiOiJNYW5hZ2VyIiwib3JnYW5pemF0aW9uIjoiR0stRWxpdGUiLCJpYXQiOjE3NTc5MjIzMzN9.C9z1pU6NnFFsql4-dCbidojFwuw8iKrnsCPWZvynScs
+
+
+
+### add comment to post in specific organizations
+PATCH {{baseUrl}}/post/add-comment/68c7bd6d6f69a285dea20465
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUxY2EwNTFiNjcyYjZlMjRiMGE2MiIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIyQGdtYWlsLmNvbSIsInJvbGUiOiJNYW5hZ2VyIiwib3JnYW5pemF0aW9uIjoiR0stRWxpdGUiLCJpYXQiOjE3NTc5MjIzMzN9.C9z1pU6NnFFsql4-dCbidojFwuw8iKrnsCPWZvynScs
+Content-Type: application/json
+
+{
+    "text" : "Nice Post!"
+}
+
+### delete comment to post in specific organizations
+PATCH {{baseUrl}}/post/delete-comment/68c7bd6d6f69a285dea20465/68c7c6b18d353f33f6647bd6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUxY2EwNTFiNjcyYjZlMjRiMGE2MiIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIyQGdtYWlsLmNvbSIsInJvbGUiOiJNYW5hZ2VyIiwib3JnYW5pemF0aW9uIjoiR0stRWxpdGUiLCJpYXQiOjE3NTc5MjIzMzN9.C9z1pU6NnFFsql4-dCbidojFwuw8iKrnsCPWZvynScs
+Content-Type: application/json
+
+
+### create poll
+POST {{baseUrl}}/post/poll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json
+
+{
+    "question": "Which framework do you prefer?",
+    "options": ["React", "Vue", "Angular"],
+    "expiresAt": "2025-12-31T23:59:59Z"
+}
+
+### vote for poll
+POST {{baseUrl}}/post/poll/vote/68c7d6c7f162ba6ea9b20d87/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json
+
+
+
+### remove vote for poll
+POST {{baseUrl}}/post/poll/remove-vote/68c7d6c7f162ba6ea9b20d87
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json

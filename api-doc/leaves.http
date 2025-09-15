@@ -1,0 +1,32 @@
+### leave apply
+POST {{baseUrl}}/leaves
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json
+
+{
+  "startDate": "2025-09-15",
+  "endDate": "2025-09-17",
+  "type": "Sick Leave",
+  "reason": "Fever"
+}
+
+
+### Get user leaves (today filter) || month
+GET {{baseUrl}}/leaves?filter=today
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json
+
+### delete leave
+DELETE {{baseUrl}}/leaves/68c7ee65bb82d9bd8f423e3d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+Content-Type: application/json
+
+
+### approved leave
+PATCH {{baseUrl}}/leaves/updated/68c7f003995dd9de5cf71f2f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUxYzVkNTFiNjcyYjZlMjRiMGE1YiIsImVtYWlsIjoiZ2tlbGl0ZWhyQGdtYWlsLmNvbSIsInJvbGUiOiJIciIsIm9yZ2FuaXphdGlvbiI6IkdLLUVsaXRlIiwiaWF0IjoxNzU3OTMyNjI1fQ.wdbEOwUsOGb2zIvjTIKE1mat1uPDtfiZ4tdGtoqKDxo
+Content-Type: application/json
+
+{
+  "status": "Approved"
+}
