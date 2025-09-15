@@ -18,6 +18,7 @@ export const authentication = (req, res, next) => {
             } else {
                 req.id = payload.id;
                 req.email = payload.email;
+                req.organization = payload.organization
                 next();
             }
         });

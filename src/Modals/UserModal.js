@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    profile: { type: String, default: null },
     role: {
       type: String,
       enum: ["Employee", "Hr", "Manager", "CEO", "Super Admin", "Team Leader"],
@@ -21,5 +22,8 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const UserModel = mongoose.model("Users", userSchema);
+userSchema.index({ organization: 1 });
+userSchema.index({ reportsTo: 1 });
+
+const UserModel = mongoose.model("User", userSchema);
 export default UserModel;

@@ -1,10 +1,11 @@
 import express from "express";
 import {
-  addedHr,
-  getEmpSepOrganization,
-  login,
-  profile,
-  signup,
+    addedHr,
+    getEmpSepOrganization,
+    hierarchyEmps,
+    login,
+    profile,
+    signup,
 } from "../Controllers/Auth.controller.js";
 import { authentication } from "../Middlewares/AuthMiddleware.js";
 
@@ -17,4 +18,5 @@ router.get("/all-emp/:organization", authentication, getEmpSepOrganization);
 
 // super admin or ceo added
 router.post("/add-hr/:id", addedHr);
+router.get("/hierarchy/:organization", hierarchyEmps)
 export default router;
