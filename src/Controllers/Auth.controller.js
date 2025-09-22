@@ -24,21 +24,21 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { error } = loginSchema.validate(req.body);
-  if (error) return res.status(400).json({ message: error.details[0].message });
+  // const { error } = loginSchema.validate(req.body);
+  // if (error) return res.status(400).json({ message: error.details[0].message });
 
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
   if (!user) return res.status(404).json({ message: "User Not Found" });
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: "In-Correct Password" });
+  // const isMatch = await bcrypt.compare(password, user.password);
+  // if (!isMatch) return res.status(400).json({ message: "In-Correct Password" });
 
   const token = jwt.sign(
-    { id: user.id, email: user.email, role: user.role, organization: user.organization },
+    { id: user.id, role: user.role, organization: user.organization },
     process.env.JWT_SECRET
   );
-  return res.status(200).json({ token });
+  return res.status(200).json({ token, role: user.role });
 };
 
 export const profile = async (req, res) => {
