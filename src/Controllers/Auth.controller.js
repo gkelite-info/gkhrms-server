@@ -104,26 +104,26 @@ async function buildHierarchy(userId) {
 
 // hierarchy employees
 export const hierarchyEmps = async (req, res) => {
-  const { organization } = req.params;
-  logger.info(`ℹ️ HIERARCHY EMP API HI ${organization}`);
-  const cacheKey = `hierarchy:${organization}`;
+  // const { organization } = req.params;
+  // logger.info(`ℹ️ HIERARCHY EMP API HI ${organization}`);
+  // const cacheKey = `hierarchy:${organization}`;
 
-  const cachedData = await getCached(req.redisClient, cacheKey);
-  if (cachedData) {
-    logger.info(`✅Cache hit ${organization}`);
-    return res.status(200).json(cachedData);
-  }
+  // const cachedData = await getCached(req.redisClient, cacheKey);
+  // if (cachedData) {
+  //   logger.info(`✅Cache hit ${organization}`);
+  //   return res.status(200).json(cachedData);
+  // }
 
-  const topUsers = await UserModel.find({
-    organization,
-    reportsTo: null,
-  }).lean();
+  // const topUsers = await UserModel.find({
+  //   organization,
+  //   reportsTo: null,
+  // }).lean();
 
-  const hierarchy = await Promise.all(
-    topUsers.map(user => buildHierarchy(user._id))
-  );
+  // const hierarchy = await Promise.all(
+  //   topUsers.map(user => buildHierarchy(user._id))
+  // );
 
-  const result = { organization, hierarchy };
-  await setCached(req.redisClient, cacheKey, result);
-  return res.status(200).json(result);
+  // const result = { organization, hierarchy };
+  // await setCached(req.redisClient, cacheKey, result);
+  // return res.status(200).json(result);
 }
