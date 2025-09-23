@@ -1,96 +1,129 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc.js";
-import timezone from "dayjs/plugin/timezone.js";
+import AttendanceModel from "../Modals/AttendanceModal.js";
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-import AttendanceModel from "../Modals/AttendaceModal.js";
-
-export const addPunch = async (req, res) => {
-    const { id, organization } = req;
-    const { type } = req.body;
-
-    const today = dayjs().tz("Asia/Kolkata").startOf("day").toDate();
-    let attendance = await AttendanceModel.findOne({ user: id, date: today, organization });
-
+const getTodayDate = () => {
+  return new Date().toISOString().slice(0, 10);
+};
+export const checkIn = async (req, res) => {
+  try {
+    const { employeeId } = req.body;
+    const today = getTodayDate();
     const now = new Date();
 
+    // Cutoff time (10:30 AM)
+    const cutoff = new Date(`${today}T10:30:00`);
+
+    // if (now < cutoff) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Check-in not allowed before 10:30 AM" });
+    // }
+
+    let attendance = await AttendanceModel.findOne({ employeeId, date: today });
+
     if (!attendance) {
-        attendance = await AttendanceModel.create({
-            user: id,
-            organization,
-            date: today,
-            punches: [{ type, time: now }],
-        });
-    } else {
-        attendance.punches.push({ type, time: now });
+      attendance = new AttendanceModel({
+        employeeId,
+        date: today,
+        logs: [],
+      });
     }
 
-    let totalMs = 0;
-    const punches = attendance.punches;
-    for (let i = 0; i < punches.length; i += 2) {
-        const inPunch = punches[i];
-        const outPunch = punches[i + 1];
-        if (inPunch && outPunch && inPunch.type === "IN" && outPunch.type === "OUT") {
-            totalMs += outPunch.time - inPunch.time;
-        }
+    const lastLog = attendance.logs[attendance.logs.length - 1];
+    if (lastLog && lastLog.type === "checkin") {
+      return res
+        .status(400)
+        .json({ message: "Already checked in. Please checkout first." });
     }
 
-    attendance.totalHours = totalMs / (1000 * 60 * 60);
-
+    attendance.logs.push({ type: "checkin", time: now });
     await attendance.save();
-    const response = {
-        ...attendance.toObject(),
-        date: dayjs(attendance.date).tz("Asia/Kolkata").format(),
-        punches: attendance.punches.map(p => ({
-            ...p.toObject(),
-            time: dayjs(p.time).tz("Asia/Kolkata").format(),
-        })),
-    };
-    return res.status(200).json({ attendance: response });
 
-    // 15:42:42 − 15:40:39 = 2 minutes 3 seconds
-    // Convert seconds:  2×60+3=123 seconds
-    // Convert to hours: 123÷3600≈0.0341667 hours
+    res.json({ message: "Checked in successfully", attendance });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-}
+export const checkOut = async (req, res) => {
+  try {
+    const { employeeId } = req.body;
+    const today = getTodayDate();
+    const now = new Date();
 
-export const getUserAttendance = async (req, res) => {
-    const { id, organization } = req;
-    const { filter } = req.query;
-
-    let start, end;
-
-    if (filter === "today") {
-        start = dayjs().tz("Asia/Kolkata").startOf("day").toDate();
-        end = dayjs().tz("Asia/Kolkata").endOf("day").toDate();
-    } else if (filter === "month") {
-        start = dayjs().tz("Asia/Kolkata").startOf("month").toDate();
-        end = dayjs().tz("Asia/Kolkata").endOf("month").toDate();
-    } else {
-        return res.status(400).json({ success: false, message: "Invalid filter. Use 'today' or 'month'" });
+    const attendance = await AttendanceModel.findOne({
+      employeeId,
+      date: today,
+    });
+    if (!attendance) {
+      return res
+        .status(400)
+        .json({ message: "No attendance found. Please check-in first." });
     }
 
-    const attendance = await AttendanceModel.find({
-        user: id,
-        organization,
-        date: { $gte: start, $lte: end },
-    }).sort({ date: -1 });
+    const lastLog = attendance.logs[attendance.logs.length - 1];
+    if (!lastLog || lastLog.type !== "checkin") {
+      return res
+        .status(400)
+        .json({ message: "Cannot checkout without a check-in." });
+    }
 
+    attendance.logs.push({ type: "checkout", time: now });
+    await attendance.save();
 
-    const attendanceIST = attendance.map(att => {
-        const attObj = att.toObject();
-        return {
-            ...attObj,
-            date: dayjs(attObj.date).tz("Asia/Kolkata").format(),
-            punches: attObj.punches.map(p => ({
-                ...p,
-                time: dayjs(p.time).tz("Asia/Kolkata").format()
-            }))
-        };
+    res.json({ message: "Checked out successfully", attendance });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getAttendance = async (req, res) => {
+  try {
+    const { employeeId, date } = req.params;
+    const attendance = await AttendanceModel.findOne({ employeeId, date });
+
+    if (!attendance) {
+      return res.status(404).json({ message: "No attendance found" });
+    }
+
+    res.json(attendance);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export const getWorkedHours = async (req, res) => {
+  try {
+    const { employeeId, date } = req.params;
+
+    const attendance = await AttendanceModel.findOne({ employeeId, date });
+    if (!attendance) {
+      return res.status(404).json({ message: "No attendance found" });
+    }
+
+    let totalMinutes = 0;
+    let lastCheckIn = null;
+
+    attendance.logs.forEach((log) => {
+      if (log.type === "checkin") {
+        lastCheckIn = new Date(log.time);
+      } else if (log.type === "checkout" && lastCheckIn) {
+        const checkoutTime = new Date(log.time);
+        totalMinutes += Math.floor((checkoutTime - lastCheckIn) / (1000 * 60));
+        lastCheckIn = null;
+      }
     });
 
-    return res.status(200).json({ attendance: attendanceIST });
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
 
-}
+    res.json({
+      employeeId,
+      date,
+      totalWorked: `${hours}h ${minutes}m`,
+      totalMinutes,
+      logs: attendance.logs,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
