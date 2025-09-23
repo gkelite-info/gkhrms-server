@@ -1,0 +1,28 @@
+### Check-in
+POST {{baseUrl}}/attendance/checkin
+Content-Type: application/json
+
+{
+  "employeeId": "652f1f4e83f2b345a9d2e111"
+}
+
+###
+
+### Check-out
+POST {{baseUrl}}/attendance/checkout
+Content-Type: application/json
+
+{
+  "employeeId": "652f1f4e83f2b345a9d2e111"
+}
+
+###
+
+### Get Attendance Logs
+GET {{baseUrl}}/attendance/652f1f4e83f2b345a9d2e111/2025-09-23
+
+
+###
+
+### Get Worked Hours
+GET {{baseUrl}}/attendance/652f1f4e83f2b345a9d2e111/2025-09-23/worked-hours
