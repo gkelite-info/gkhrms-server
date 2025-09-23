@@ -1,13 +1,28 @@
-### attendace added  OUT -- IN
-POST {{baseUrl}}/attendance/punch
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+### Check-in
+POST {{baseUrl}}/attendance/checkin
 Content-Type: application/json
 
 {
-    "type": "IN"
+  "employeeId": "652f1f4e83f2b345a9d2e111"
 }
 
-### get attendance for specific user || today -- month
-GET {{baseUrl}}/attendance?filter=today
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzUyNTdhZjY4NWQ0Y2UxMjRhNWZiZSIsImVtYWlsIjoiZ2tlbGl0ZW1hbmFnZXIxdGwxZW1wMUBnbWFpbC5jb20iLCJyb2xlIjoiRW1wbG95ZWUiLCJvcmdhbml6YXRpb24iOiJHSy1FbGl0ZSIsImlhdCI6MTc1NzkyMDUyMH0.RSjv2aGaJxCp-OYHdzvTAu0Zy3AYxfZeD8G3djRsTgI
+###
+
+### Check-out
+POST {{baseUrl}}/attendance/checkout
 Content-Type: application/json
+
+{
+  "employeeId": "652f1f4e83f2b345a9d2e111"
+}
+
+###
+
+### Get Attendance Logs
+GET {{baseUrl}}/attendance/652f1f4e83f2b345a9d2e111/2025-09-23
+
+
+###
+
+### Get Worked Hours
+GET {{baseUrl}}/attendance/652f1f4e83f2b345a9d2e111/2025-09-23/worked-hours

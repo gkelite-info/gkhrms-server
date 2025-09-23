@@ -1,10 +1,17 @@
 import express from "express";
-import { authentication } from "../Middlewares/AuthMiddleware.js";
-import { addPunch, getUserAttendance } from "../Controllers/Attendace.controller.js";
+import {
+  checkIn,
+  checkOut,
+  getAttendance,
+  getWorkedHours,
+} from "../Controllers/Attendace.Controller.js";
 
-const attendanceRouter = express.Router();
+const router = express.Router();
 
-attendanceRouter.post("/punch", authentication, addPunch);
-attendanceRouter.get("/", authentication, getUserAttendance)
+router.post("/checkin", checkIn);
 
-export default attendanceRouter;
+router.post("/checkout", checkOut);
+
+router.get("/:employeeId/:date", getAttendance);
+router.get("/:employeeId/:date/worked-hours", getWorkedHours);
+export default router;
